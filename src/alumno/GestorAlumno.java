@@ -178,5 +178,12 @@ public class GestorAlumno {
 
 		alumnos.add(alumno);
 	}
+	
+	public void guardarFicheroBinario() {
+		System.out.println("Introduzca la ruta del archivo en el que quiera guardar a los alumnos");
+		String ruta=sc.nextLine();
+		
+		
+	}
 
 }
