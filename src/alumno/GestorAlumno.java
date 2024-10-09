@@ -32,30 +32,13 @@ public class GestorAlumno {
 			System.out.println(alumnos.get(i).toString());
 		}
 	}
-
+	
 	public void  menu1() {
 		System.out.println("******* MENU *******");
+		System.out.println("0. Salir del Programa");
 		System.out.println("1. Crear 1 Alumno");
 		System.out.println("2. Crear 5 Alumnos");
-		System.out.println("3. Ordenar por NIA");
-		System.out.println("4. Ordenar por el criterio elegido");
-	}
-
-	public void  menu2() {
-		System.out.println("******* MENU 2 *******");
-		System.out.println("1. Ordenar por Nombre");
-		System.out.println("2. Ordenar por Apellidos");
-		System.out.println("3. Ordenar por Fecha de nacimiento");
-		System.out.println("4. Ordenar por Genero");
-		System.out.println("5. Ordenar por Ciclo");
-		System.out.println("6. Ordenar por Curso");
-		System.out.println("7. Ordenar por Grupo");
-	}
-
-	public static void ordenarYMostrar(List<Alumno> alumnos, Comparator<Alumno> criterio, String mensaje) {
-		Collections.sort(alumnos, criterio);
-		System.out.println("\n" + mensaje + ":");
-		alumnos.forEach(System.out::println);
+		System.out.println("3.Guardar en fichero binario todos los alumnos campo a campo");
 	}
 
 	public void ejecutar() {
@@ -77,40 +60,8 @@ public class GestorAlumno {
 				leer5Alumnos();
 				break;
 			case 3:
-				System.out.println("Has elegido ordenar por Nia");
-				ordenarYMostrar(alumnos, Comparator.comparing(Alumno::getNia), "Ordenado por NIA");
-				break;
-			case 4:
-				System.out.println("Has elegido ordenar por el criterio elegido");
-				menu2();
-				System.out.print("Elige una opción: ");
-				opcion2 = sc.nextInt();
-
-				switch (opcion2) {
-				case 1:
-					ordenarYMostrar(alumnos, Comparator.comparing(Alumno::getNombre), "Ordenado por nombre");
-					break;
-				case 2:
-					ordenarYMostrar(alumnos, Comparator.comparing(Alumno::getApellidos), "Ordenado por apellidos");
-					break;
-				case 3:
-					ordenarYMostrar(alumnos, Comparator.comparing(Alumno::getFecha), "Ordenado por fecha de nacimiento");
-					break;
-				case 4:
-					ordenarYMostrar(alumnos, Comparator.comparing(Alumno::getGenero), "Ordenado por género");
-					break;
-				case 5:
-					ordenarYMostrar(alumnos, Comparator.comparing(Alumno::getCiclo), "Ordenado por ciclo");
-					break;
-				case 6:
-					ordenarYMostrar(alumnos, Comparator.comparing(Alumno::getCurso), "Ordenado por curso");
-					break;
-				case 7:
-					ordenarYMostrar(alumnos, Comparator.comparing(Alumno::getGrupo), "Ordenado por grupo");
-					break;
-				default:
-					System.out.println("Opción no válida, intenta nuevamente.");
-				}
+				System.out.println("Has elegido guardar los archivos dentro del fichero binario");
+				guardarFicheroBinario();
 				break;
 			case 0:
 				System.out.println("Saliendo del programa...");
@@ -198,6 +149,7 @@ public class GestorAlumno {
 			  for (int i = 0; i < alumnos.size(); i++) {
 				oos.writeObject(i);
 			}
+			 System.out.println("Se han guardado los Alumnos correctamente dentro del fichero.dat");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
