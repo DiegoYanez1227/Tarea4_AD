@@ -1,5 +1,10 @@
 package alumno;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -183,6 +188,32 @@ public class GestorAlumno {
 		System.out.println("Introduzca la ruta del archivo en el que quiera guardar a los alumnos");
 		String ruta=sc.nextLine();
 		
+		File fichero= new File("FicheroAlumnos.dat");
+		FileOutputStream fos=null;
+		ObjectOutputStream oos=null;
+		try {
+			 fos= new FileOutputStream(fichero);
+			 oos= new ObjectOutputStream(fos);
+			 
+			  for (int i = 0; i < alumnos.size(); i++) {
+				oos.writeObject(i);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				oos.close();
+				fos.close();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
