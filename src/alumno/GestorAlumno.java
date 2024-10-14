@@ -131,7 +131,7 @@ public class GestorAlumno {
 			oos.writeUTF(alumno.getCurso());
 			oos.writeUTF(alumno.getGrupo());
 
-			System.out.println("Se ha guardado el Alumno correctamente dentro del fichero.dat");
+			System.out.println("Se ha guardado el Alumno correctamente dentro del FicheroAlumnos.dat");
 			System.out.println("");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
