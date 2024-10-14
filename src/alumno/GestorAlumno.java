@@ -1,5 +1,6 @@
 package alumno;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,9 +17,10 @@ import java.util.Scanner;
 public class GestorAlumno {
 
 
-	private static final int NUMERO_DE_ALUMNOS = 5;
+	private static final int NUMERO_DE_ALUMNOS = 2;
 	Scanner sc = new Scanner(System.in);
 	List<Alumno> alumnos= new ArrayList<Alumno>();
+
 
 
 	public void leer5Alumnos() {
@@ -32,50 +34,20 @@ public class GestorAlumno {
 			System.out.println(alumnos.get(i).toString());
 		}
 	}
-	
-	public void  menu1() {
-		System.out.println("******* MENU *******");
-		System.out.println("0. Salir del Programa");
-		System.out.println("1. Crear 1 Alumno");
-		System.out.println("2. Crear 5 Alumnos");
-		System.out.println("3.Guardar en fichero binario todos los alumnos campo a campo");
-	}
+
+
 
 	public void ejecutar() {
-		int opcion;
-		int opcion2;
 
-		do {
-			menu1();
-			System.out.print("Elige una opción: ");
-			opcion = sc.nextInt();
+		leer5Alumnos();
+		System.out.println("");
 
-			switch (opcion) {
-			case 1:
-				System.out.println("Has elegido leer 1 Alumno");
-				leer1Alumno();
-				break;
-			case 2:
-				System.out.println("Has elegido leer 5 Alumnos");
-				leer5Alumnos();
-				break;
-			case 3:
-				System.out.println("Has elegido guardar los archivos dentro del fichero binario");
-				guardarFicheroBinario();
-				break;
-			case 0:
-				System.out.println("Saliendo del programa...");
-				break;
-			default:
-				System.out.println("Opción no válida, intenta de nuevo.");
-			}
-		} while (opcion != 0);
 	}
 
 	public void leer1Alumno() {
-		
+
 		Alumno alumno= new Alumno();
-		
+
 		System.out.println("Introduzca el NIA del alumno:");
 		int nia = sc.nextInt();
 		alumno.setNia(nia);
@@ -131,25 +103,36 @@ public class GestorAlumno {
 		String grupo = sc.nextLine();
 		alumno.setGrupo(grupo);
 		System.out.println("----FIN DE LA CREACION DE ALUMNO-----");
+		System.out.println("");
+		System.out.println("");
 
 		alumnos.add(alumno);
+		guardarFicheroBinario(alumno);
+
 	}
-	
-	public void guardarFicheroBinario() {
-		System.out.println("Introduzca la ruta del archivo en el que quiera guardar a los alumnos");
-		String ruta=sc.nextLine();
-		
-		File fichero= new File("FicheroAlumnos.dat");
+
+	public void guardarFicheroBinario(Alumno alumno) {
+
+		// escritorio clase     C:\\Users\\usuario\\Desktop\\FicheroAlumnos.dat
+		File fichero= new File("C:\\Users\\usuario\\Desktop\\FicheroAlumnos.dat");
 		FileOutputStream fos=null;
-		ObjectOutputStream oos=null;
+		DataOutputStream oos=null;
 		try {
-			 fos= new FileOutputStream(fichero);
-			 oos= new ObjectOutputStream(fos);
-			 
-			  for (int i = 0; i < alumnos.size(); i++) {
-				oos.writeObject(i);
-			}
-			 System.out.println("Se han guardado los Alumnos correctamente dentro del fichero.dat");
+			fos= new FileOutputStream(fichero);
+			oos= new DataOutputStream(fos);
+
+
+			oos.writeInt(alumno.getNia());
+			oos.writeUTF(alumno.getNombre());
+			oos.writeUTF(alumno.getApellidos());
+			oos.writeLong(alumno.getFecha().getTime());
+			oos.writeChar(alumno.getGenero());
+			oos.writeUTF(alumno.getCiclo());
+			oos.writeUTF(alumno.getCurso());
+			oos.writeUTF(alumno.getGrupo());
+
+			System.out.println("Se ha guardado el Alumno correctamente dentro del fichero.dat");
+			System.out.println("");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -160,13 +143,13 @@ public class GestorAlumno {
 			try {
 				oos.close();
 				fos.close();
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
 	}
-
 }
+
+
